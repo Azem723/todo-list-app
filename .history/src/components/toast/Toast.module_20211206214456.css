@@ -1,0 +1,30 @@
+.toast {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  min-width: 300px;
+  min-height: 50px;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.918);
+  color: rgb(0, 0, 0);
+  animation: toast-fade 2s linear;
+  -webkit-animation: toast-fade 3s linear;
+  opacity: 0;
+}
+.toastMessage {
+  margin: auto;
+}
+
+@keyframes toast-fade {
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
