@@ -1,0 +1,45 @@
+.todo-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+/* .todo-container:nth-child(2) > .todo-row {
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+} */
+
+.todo-container:nth-child(4n + 1) > div {
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+}
+
+.todo-container:nth-child(4n + 2) > div {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 12, 241, 1) 0%,
+    rgba(250, 0, 135, 1) 100%
+  );
+}
+
+.todo-container:nth-child(4n + 3) > div {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 159, 255, 1) 0%,
+    rgba(17, 122, 255, 1) 100%
+  );
+}
+
+.todo-container:nth-child(4n + 4) > div {
+  background: linear-gradient(
+    90deg,
+    rgb(38, 253, 171) 0%,
+    rgb(23, 173, 219) 100%
+  );
+}
