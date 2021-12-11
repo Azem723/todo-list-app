@@ -3,7 +3,7 @@ import axios from 'axios';
 // 封装后的 Post Put 方法
 const axiosPost = async (acPayload, api, authorId) => {
   const packet = Object.assign({ authorId: authorId }, acPayload);
-  console.log(packet);
+  // console.log(packet);
   try {
     const { data } = await axios.post(api, packet);
     return data;
@@ -14,7 +14,7 @@ const axiosPost = async (acPayload, api, authorId) => {
 
 const axiosPut = async (acPayload, api, authorId) => {
   const packet = Object.assign({ authorId: authorId }, acPayload);
-  console.log(packet);
+  // console.log(packet);
   try {
     const { data } = await axios.put(api, packet);
     return data;
@@ -27,7 +27,6 @@ export const todolistMiddleWare = (store) => (next) => (action) => {
   // console.log('state now',store);
   // console.log('fire action', action);
   const authorId = store.getState().user.uid;
-
   // 测试用 api
   // let api =
   //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/';

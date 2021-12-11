@@ -6,11 +6,12 @@ import TodoList from '../../components/todoList/TodoList';
 
 function Home() {
   const firstTime = useSelector((state) => state.todolist.firstTime);
+  const jwt = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   useEffect(() => {
     // console.log('home excute useEffect');
     if (firstTime) {
-      dispatch(getInitialList());
+      dispatch(getInitialList(jwt));
     }
   }, [firstTime]); // eslint-disable-line
 

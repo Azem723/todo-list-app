@@ -11,11 +11,11 @@ function LoginPage() {
 
   // 组件 state 获取用户输入
   const [userLogInInput, setUserLogInInput] = useState({
-    userName: '',
+    username: '',
     password: ''
   });
   function handleUserNameInput(e) {
-    setUserLogInInput({ ...userLogInInput, userName: e.target.value });
+    setUserLogInInput({ ...userLogInInput, username: e.target.value });
   }
   function handlePasswordInput(e) {
     setUserLogInInput({ ...userLogInInput, password: e.target.value });
@@ -26,7 +26,7 @@ function LoginPage() {
   const errorMessage = useSelector((state) => state.user.error);
   // 密码错误时 showToast
   useEffect(() => {
-    if (errorMessage !== null) {
+    if (errorMessage) {
       showToast(errorMessage);
     }
   }, [errorMessage]);
@@ -34,20 +34,23 @@ function LoginPage() {
   const navigate = useNavigate();
   useEffect(() => {
     if (jwt !== null) {
-      console.log('jwt:', jwt);
       navigate('/home');
     }
-  }, [jwt]);// eslint-disable-line
+  }, [jwt]); // eslint-disable-line
 
   function handleLogin(e) {
     e.preventDefault();
-    if (!userLogInInput.userName || !userLogInInput.password) {
-      showToast('用户名和密码不能为空！')
+    const noSpace = /(^\s+)|(\s+$)|\s+/g;
+    if (!userLogInInput.username || !userLogInInput.password) {
+      showToast('用户名和密码不能为空！');
+    } else if (
+      noSpace.test(userLogInInput.username) ||
+      noSpace.test(userLogInInput.password)
+    ) {
+      showToast('用户名或密码非法');
     } else {
       dispatch(signIn(userLogInInput));
     }
-
-    // console.log('userInput:', userLogInInput);
   }
 
   return (
@@ -58,13 +61,15 @@ function LoginPage() {
         <input
           className={styles['firstPage-input']}
           type="text"
-          value={userLogInInput.userName}
+          maxLength="20"
+          value={userLogInInput.username}
           onChange={handleUserNameInput}
           placeholder="请输入用户名"
         />
         <input
           className={`${styles['firstPage-input']} ${styles['firstPage-password']}`}
-          type="text"
+          type="password"
+          maxLength="20"
           value={userLogInInput.password}
           onChange={handlePasswordInput}
           placeholder="请输入密码"

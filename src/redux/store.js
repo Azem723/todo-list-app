@@ -20,15 +20,23 @@ import { todolistMiddleWare } from './middleware/todolistMiddleWare';
 // 浏览器缓存
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
+// 创建嵌套 presist 设置
+// 本地只保存 uid 与 token 防止请求失败用户再次刷新时，loading 依旧为 true
+const userPresistConfig = {
+  key: 'user',
+  storage: storage,
+  blacklist: ['loading', 'error']
+};
 const presistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['user']
+  blacklist: ['todolist','user']
 };
 
+// 创建嵌套 presist
 const rootReducer = combineReducers({
   todolist: todolistReducer,
-  user: userSlice.reducer
+  user: persistReducer(userPresistConfig, userSlice.reducer)
 });
 
 const persistedReducer = persistReducer(presistConfig, rootReducer); // 浏览器缓存

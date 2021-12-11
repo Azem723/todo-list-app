@@ -3,14 +3,14 @@ import axios from 'axios';
 
 export const getInitialList = createAsyncThunk(
   'todolist/getInitialList',
-  async () => {
+  async (jwt,thunkAPI) => {
     // console.log('getInitialList start');
     // const testApiFastMock =
     //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/getTodolist';
     const testApi = '/api/list/getTodolist';
     const { data } = await axios.get(testApi, {
       headers: {
-        authorId: 123
+        authorId: jwt
       }
     });
     if (data.errno === 0) {
