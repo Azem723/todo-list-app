@@ -36,8 +36,8 @@ function TodoForm(props) {
         ADD_TODO({
           id: Math.floor(Math.random() * 10000),
           text: input,
-          isComplete: false,
-          isDaily:false
+          isComplete: 0,
+          isDaily: 0
         })
       );
     }

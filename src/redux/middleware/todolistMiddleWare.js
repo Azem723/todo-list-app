@@ -1,40 +1,51 @@
 import axios from 'axios';
+import { getInitialList } from '../listState/slice';
+import { showToast } from '../../components/toast/Toast';
 
-// 封装后的 Post Put 方法
-const axiosPost = async (acPayload, api, authorId) => {
-  const packet = Object.assign({ authorId: authorId }, acPayload);
+// 封装后的 Post 方法
+const axiosPost = async (acPayload, api, uid, token) => {
+  const packet = Object.assign({ uid: uid }, acPayload);
   // console.log(packet);
   try {
-    const { data } = await axios.post(api, packet);
+    const { data } = await axios.post(api, packet, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return data;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
-
-const axiosPut = async (acPayload, api, authorId) => {
-  const packet = Object.assign({ authorId: authorId }, acPayload);
+// 封装后的 Put 方法
+const axiosPut = async (acPayload, api, uid, token) => {
+  const packet = Object.assign({ uid: uid }, acPayload);
   // console.log(packet);
   try {
-    const { data } = await axios.put(api, packet);
+    const { data } = await axios.put(api, packet, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return data;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
 
 export const todolistMiddleWare = (store) => (next) => (action) => {
-  // console.log('state now',store);
+  // console.log('state now', store);
   // console.log('fire action', action);
-  const authorId = store.getState().user.uid;
+  const uid = store.getState().user.uid;
+  const token = store.getState().user.token;
+  const dispatch = store.dispatch;
   // 测试用 api
   // let api =
   //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/';
   let api = '/api/list/';
   switch (action.type) {
-    case 'todolist/GET_TODO':
-      break;
-
     case 'todolist/ADD_TODO':
       let addTodoApi = api + 'addTodo';
       let storelist = store.getState().todolist.data;
@@ -44,29 +55,45 @@ export const todolistMiddleWare = (store) => (next) => (action) => {
         ? storelist[storelist.length - 1].sortIndex + 1
         : 0;
 
-      axiosPost(action.payload, addTodoApi, authorId).then((data) => {
-        console.log(data);
+      axiosPost(action.payload, addTodoApi, uid, token).then((data) => {
+        if (data.errno && data.errno === -1) {
+          showToast(data.message);
+          dispatch(getInitialList());
+        }
+        // console.log(data);
       });
       break;
 
     case 'todolist/REMOVE_TODO':
       let removeTodoApi = api + 'delTodo';
-      axiosPost(action.payload, removeTodoApi, authorId).then((data) => {
-        console.log(data);
+      axiosPost(action.payload, removeTodoApi, uid, token).then((data) => {
+        if (data.errno && data.errno === -1) {
+          showToast(data.message);
+          dispatch(getInitialList());
+        }
+        // console.log(data);
       });
       break;
 
     case 'todolist/UPDATE_TODO':
       let updateTodoApi = api + 'updateTodo';
-      axiosPut(action.payload, updateTodoApi, authorId).then((data) => {
-        console.log(data);
+      axiosPut(action.payload, updateTodoApi, uid, token).then((data) => {
+        if (data.errno && data.errno === -1) {
+          showToast(data.message);
+          dispatch(getInitialList());
+        }
+        // console.log(data);
       });
       break;
 
     case 'todolist/COMPLETE_TODO':
       let completeTodoApi = api + 'completeTodo';
-      axiosPut(action.payload, completeTodoApi, authorId).then((data) => {
-        console.log(data);
+      axiosPut(action.payload, completeTodoApi, uid, token).then((data) => {
+        if (data.errno && data.errno === -1) {
+          showToast(data.message);
+          dispatch(getInitialList());
+        }
+        // console.log(data);
       });
       break;
 
@@ -74,11 +101,19 @@ export const todolistMiddleWare = (store) => (next) => (action) => {
       let reorderTodoApi = api + 'reorderTodo';
       let reorderPacket = {
         reorder: action.payload.map((item) => {
-          return { id: item.id, sortIndex: item.sortIndex };
+          return {
+            id: item.id,
+            sortIndex: item.sortIndex,
+            isDaily: item.isDaily
+          };
         })
       };
-      axiosPost(reorderPacket, reorderTodoApi, authorId).then((data) => {
-        console.log(data);
+      axiosPost(reorderPacket, reorderTodoApi, uid, token).then((data) => {
+        if (data.errno && data.errno === -1) {
+          showToast(data.message);
+          dispatch(getInitialList());
+        }
+        // console.log(data);
       });
       break;
 

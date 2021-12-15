@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { signIn } from '../../redux/user/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Toast from '../../components/toast/Toast';
 import { showToast } from '../../components/toast/Toast';
 
 function LoginPage() {
@@ -79,7 +78,6 @@ function LoginPage() {
           注册
         </a>
       </form>
-      <Toast />
     </>
   );
 }

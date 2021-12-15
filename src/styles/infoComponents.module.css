@@ -1,0 +1,36 @@
+.info-form {
+  width: 60%;
+  margin: 10px auto;
+}
+.info-header {
+  color: rgb(151, 151, 151);
+  margin: 10px auto;
+}
+.info-input {
+  margin-bottom: 30px;
+}
+
+.info-password {
+  border-color: #dfbec7;
+}
+@media screen and (max-width: 500px) {
+  .info-input {
+    width: 100%;
+  }
+}
+
+.info-button {
+  width: 70px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  font-size: 15px;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.info-cancel {
+  margin-right: 15px;
+}

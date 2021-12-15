@@ -36,7 +36,7 @@ const presistConfig = {
 // 创建嵌套 presist
 const rootReducer = combineReducers({
   todolist: todolistReducer,
-  user: persistReducer(userPresistConfig, userSlice.reducer)
+  user: persistReducer(userPresistConfig, userSlice)
 });
 
 const persistedReducer = persistReducer(presistConfig, rootReducer); // 浏览器缓存

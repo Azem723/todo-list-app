@@ -3,21 +3,20 @@ import axios from 'axios';
 
 export const getInitialList = createAsyncThunk(
   'todolist/getInitialList',
-  async (jwt,thunkAPI) => {
+  async (paramaters, thunkAPI) => {
     // console.log('getInitialList start');
     // const testApiFastMock =
     //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/getTodolist';
     const testApi = '/api/list/getTodolist';
+    const uid = thunkAPI.getState().user.uid;
+    const token = thunkAPI.getState().user.token;
     const { data } = await axios.get(testApi, {
       headers: {
-        authorId: jwt
+        uid: uid,
+        Authorization: `Bearer ${token}`
       }
     });
-    if (data.errno === 0) {
-      return data.data;
-    } else {
-      throw new Error('error!');
-    }
+    return data;
   }
 );
 
@@ -55,14 +54,6 @@ const todolistSlice = createSlice({
         }
         return item;
       });
-      // const updatedArr = state.data.map((item) => {
-      //   if (item.id === action.payload.id) {
-      //     item = Object.assign({}, item);
-      //     item.text = action.payload.text;
-      //   }
-      //   return item;
-      // });
-      // return updatedArr;
     },
 
     COMPLETE_TODO: (state, action) => {
@@ -71,23 +62,9 @@ const todolistSlice = createSlice({
           item.isComplete = item.isComplete === 1 ? 0 : 1;
         }
       }
-      // const completeTodoArr = state.map((item) => {
-      //   if (item.id === action.payload) {
-      //     item = Object.assign({}, item);
-      //     item.isComplete = !item.isComplete;
-      //   }
-      //   return item;
-      // });
-      // return completeTodoArr;
     },
     REORDER_TODO: (state, action) => {
       state.data = action.payload;
-      // const reOrderedList = action.payload.map((item, index) => {
-      //   item = Object.assign({}, item);
-      //   item.sortIndex = index;
-      //   return item;
-      // });
-      // return reOrderedList;
     }
   },
   extraReducers: {
@@ -95,14 +72,18 @@ const todolistSlice = createSlice({
       state.loading = true;
     },
     [getInitialList.fulfilled.type](state, action) {
-      // console.log('getInitialList fulfilled');
-      state.loading = false;
-      state.firstTime = false;
-      state.data = action.payload;
+      if (action.payload.errno === 0) {
+        console.log('getInitialList fulfilled');
+        state.loading = false;
+        state.firstTime = false;
+        state.data = action.payload.data;
+      } else {
+        state.loading = false;
+      }
     },
-    [getInitialList.rejected.type](state) {
+    [getInitialList.rejected.type](state, action) {
       state.loading = false;
-      // console.log('getInitialList fail');
+      console.log('getInitialList fail');
     }
   }
 });

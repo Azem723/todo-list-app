@@ -7,24 +7,15 @@
   margin: 10px auto;
 }
 .firstPage-header {
-  color: rgb(151, 151, 151);
+  color: #88b7c9;
   margin: 10px auto;
 }
 .firstPage-input {
-  padding: 14px 32px 14px 16px;
-  border-radius: 5px;
-  border: 2px solid #5d0cff;
-  outline: none;
-  width: 320px;
-  background: transparent;
-  color: #fff;
   margin-bottom: 30px;
 }
-.firstPage-input::placeholder {
-  color: #fff;
-}
+
 .firstPage-password {
-  border-color: #8e70c9;
+  border-color: #dfbec7;
 }
 @media screen and (max-width: 500px) {
   .firstPage-input {
@@ -38,13 +29,7 @@
   border-radius: 4px;
   cursor: pointer;
   outline: none;
-  background: linear-gradient(
-    90deg,
-    rgba(93, 12, 255, 1) 0%,
-    rgba(155, 0, 250, 1) 100%
-  );
   font-size: 20px;
-  color: #fff;
   text-transform: capitalize;
 }
 .firstPage-SignupRegsitSwitch {
