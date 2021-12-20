@@ -2,10 +2,7 @@ import Styles from './Todo.module.css';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
-// import {
-//   removeTodoActionCreator,
-//   completeTodoActionCreator
-// } from '../redux/listState/listActions';
+
 import { REMOVE_TODO, COMPLETE_TODO } from '../../redux/listState/slice';
 
 function Todo(props) {

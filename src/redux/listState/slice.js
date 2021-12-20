@@ -5,12 +5,11 @@ export const getInitialList = createAsyncThunk(
   'todolist/getInitialList',
   async (paramaters, thunkAPI) => {
     // console.log('getInitialList start');
-    // const testApiFastMock =
-    //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/getTodolist';
-    const testApi = '/api/list/getTodolist';
+    const api = 'http://39.107.142.104:3030/api/list/getTodolist'
+
     const uid = thunkAPI.getState().user.uid;
     const token = thunkAPI.getState().user.token;
-    const { data } = await axios.get(testApi, {
+    const { data } = await axios.get(api, {
       headers: {
         uid: uid,
         Authorization: `Bearer ${token}`
@@ -65,6 +64,9 @@ const todolistSlice = createSlice({
     },
     REORDER_TODO: (state, action) => {
       state.data = action.payload;
+    },
+    SET_FIRSTTIME: (state, aciton) => {
+      state.firstTime = true;
     }
   },
   extraReducers: {
@@ -93,6 +95,7 @@ export const {
   REMOVE_TODO,
   UPDATE_TODO,
   COMPLETE_TODO,
-  REORDER_TODO
+  REORDER_TODO,
+  SET_FIRSTTIME
 } = todolistSlice.actions;
 export default todolistSlice.reducer;

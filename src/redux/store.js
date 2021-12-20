@@ -51,7 +51,7 @@ const store = configureStore({
       serializableCheck: false
     }).concat(todolistMiddleWare),
 
-  devTools: true
+  devTools: false
 });
 
 // 在 index ReactDOM.render() 中使用组件

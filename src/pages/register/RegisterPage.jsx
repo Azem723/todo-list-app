@@ -34,14 +34,6 @@ function RegiserPage() {
     }
   }, [jwt]); // eslint-disable-line
 
-  // function showToast(message) {
-  //   if (message) {
-  //     return <Toast toastMessage={message} />;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   const handleRegist = (e) => {
     e.preventDefault();
 
@@ -100,9 +92,14 @@ function RegiserPage() {
           placeholder="请确认密码"
         />
         <button className={styles['firstPage-button']}>注 册</button>
-        <a href="/" className={styles['firstPage-SignupRegsitSwitch']}>
+        <p
+          className={styles['firstPage-SignupRegsitSwitch']}
+          onClick={() => {
+            navigate('/');
+          }}
+        >
           已有账号？
-        </a>
+        </p>
       </form>
     </>
   );

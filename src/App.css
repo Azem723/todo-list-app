@@ -79,13 +79,8 @@ h1 {
   }
 }
 
-a {
+p {
   text-decoration: underline;
   color: #c8ddee;
-}
-a:hover,
-a:visited,
-a:link,
-a:active {
-  color: #c8ddee;
+  cursor: pointer;
 }

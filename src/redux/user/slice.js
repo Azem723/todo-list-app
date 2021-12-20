@@ -2,16 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import rsaEncrypt from '../../utils/encrypt';
 
-// const testMockAPI = `https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/login-test`;
-const localTestApi = '/api/user/login';
-const localTestApiSignUp = '/api/user/regist';
-const localTestApiChangeUsername = '/api/user/changeUsername';
-const localTestApiChangePassword = '/api/user/changePassword';
+// 'http://39.107.142.104:3030/api/user/login';
+// 'http://39.107.142.104:3030/api/user/regist';
+// 'http://39.107.142.104:3030/api/user/changeUsername';
+// 'http://39.107.142.104:3030/api/user/changePassword';
+
+const userApi = 'http://39.107.142.104:3030/api/user/';
+
 // 异步登录请求
 export const signIn = createAsyncThunk(
   'user/signIn',
   async (paramaters, thunkAPI) => {
-    const { data } = await axios.post(localTestApi, {
+    const { data } = await axios.post(userApi + 'login', {
       username: rsaEncrypt(paramaters.username),
       password: rsaEncrypt(paramaters.password)
     });
@@ -22,7 +24,7 @@ export const signIn = createAsyncThunk(
 export const signUp = createAsyncThunk(
   'user/signUp',
   async (paramaters, thunkAPI) => {
-    const { data } = await axios.post(localTestApiSignUp, {
+    const { data } = await axios.post(userApi + 'regist', {
       username: rsaEncrypt(paramaters.username),
       password: rsaEncrypt(paramaters.password)
     });
@@ -37,7 +39,7 @@ export const changeUsername = createAsyncThunk(
     const oldUsername = thunkAPI.getState().user.username;
 
     const { data } = await axios.post(
-      localTestApiChangeUsername,
+      userApi + 'changeUsername',
       {
         oldUsername: rsaEncrypt(oldUsername),
         newUsername: rsaEncrypt(paramaters)
@@ -57,7 +59,7 @@ export const changePassword = createAsyncThunk(
   async (paramaters, thunkAPI) => {
     const token = thunkAPI.getState().user.token;
     const { data } = await axios.post(
-      localTestApiChangePassword,
+      userApi + 'changePassword',
       {
         oldPassword: rsaEncrypt(paramaters.oldPassword),
         newPassword: rsaEncrypt(paramaters.newPassword)
@@ -122,7 +124,7 @@ const userSlice = createSlice({
     },
     [signUp.fulfilled.type]: (state, action) => {
       if (action.payload.errno === 0) {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.token = action.payload.data.token;
         state.uid = action.payload.data.uid;
         state.username = action.payload.data.username;

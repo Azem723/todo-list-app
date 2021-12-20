@@ -10,15 +10,15 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const firstTime = useSelector((state) => state.todolist.firstTime);
+  const jwt = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     // console.log('home excute useEffect');
-    if (firstTime) {
-      dispatch(getInitialList());
-      // dispatch(GET_TODO())
+    if (firstTime && jwt !== null) {
+      dispatch(getInitialList(jwt));
     }
-  },[firstTime]); // eslint-disable-line
+  }, [firstTime]); // eslint-disable-line
 
   return (
     <div>

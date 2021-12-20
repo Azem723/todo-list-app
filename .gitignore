@@ -23,4 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+listActions.js*
+listReducer.js*
+
 /src/components/no-redux-components

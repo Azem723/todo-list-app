@@ -1,22 +1,12 @@
 import Styles from './TodoForm.module.css';
 import React, { useState } from 'react';
-// import {
-//   addTodoActionCreator,
-//   updateTodoActionCreator
-// } from '../redux/listState/listActions';
 import { useDispatch } from 'react-redux';
 import { ADD_TODO, UPDATE_TODO } from '../../redux/listState/slice';
 
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
-  // const inputRef = useRef(null);
-
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // });
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -56,7 +46,6 @@ function TodoForm(props) {
             name="text"
             className={`${Styles['todo-input']} ${Styles['edit']}`}
             onChange={handleChange}
-            // ref={inputRef}
           />
           <button className={`${Styles['todo-button']} ${Styles['edit']}`}>
             更新
@@ -71,7 +60,6 @@ function TodoForm(props) {
             name="text"
             className={Styles['todo-input']}
             onChange={handleChange}
-            // ref={inputRef}
           />
           <button className={Styles['todo-button']}>添加</button>
         </>

@@ -74,9 +74,14 @@ function LoginPage() {
           placeholder="请输入密码"
         />
         <button className={styles['firstPage-button']}>登 录</button>
-        <a className={styles['firstPage-SignupRegsitSwitch']} href="/signup">
+        <p
+          className={styles['firstPage-SignupRegsitSwitch']}
+          onClick={() => {
+            navigate('/signup');
+          }}
+        >
           注册
-        </a>
+        </p>
       </form>
     </>
   );

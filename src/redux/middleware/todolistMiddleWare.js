@@ -41,10 +41,9 @@ export const todolistMiddleWare = (store) => (next) => (action) => {
   const uid = store.getState().user.uid;
   const token = store.getState().user.token;
   const dispatch = store.dispatch;
-  // 测试用 api
-  // let api =
-  //   'https://www.fastmock.site/mock/ec3f45d4cf2bb5a3874fc0d304a8c735/todolist/api/';
-  let api = '/api/list/';
+
+  let api = 'http://39.107.142.104:3030/api/list/'; //prd
+
   switch (action.type) {
     case 'todolist/ADD_TODO':
       let addTodoApi = api + 'addTodo';

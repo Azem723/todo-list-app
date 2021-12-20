@@ -69,11 +69,6 @@ function TodoList() {
     return todosArr.dailyTodos.concat(todosArr.todayTodos);
   };
 
-  /**
-   *  原本想设置成，拖拽开始时分割线与文字提示出现
-   *  但是 DragDropContext 的高度在拖拽时突变的话，在拖拽结束时会出现抖动
-   *  因此设置成分割线永远显示，问题提示随拖拽动作出现和消失
-   */
   // onDragStart 函数在拖拽开始时触发
   const onDragStart = () => {
     setsplitBlockDisplay(true); // 日常任务文字显示

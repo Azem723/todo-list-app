@@ -16,6 +16,7 @@ import { showToast } from './components/toast/Toast';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { logOut } from './redux/user/slice';
+import { SET_FIRSTTIME } from './redux/listState/slice';
 
 const PrivateRoute = ({ element: Component, isAuthenticated: jwt }) => {
   // console.log(component, isAuthenticated);
@@ -40,6 +41,11 @@ function App() {
       return Promise.reject(error);
     }
   );
+
+  // clear FirstTime
+  if (jwt === null) {
+    dispatch(SET_FIRSTTIME());
+  }
 
   function loadingMask(loading) {
     if (loading) {
