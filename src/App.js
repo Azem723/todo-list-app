@@ -24,6 +24,8 @@ const PrivateRoute = ({ element: Component, isAuthenticated: jwt }) => {
 };
 
 function App() {
+  console.log('查看源码请访问 https://github.com/Azem723/todo-list-app --MaMX');
+
   const loading = useSelector((state) => state.user.loading);
   const jwt = useSelector((state) => state.user.token);
   const dispatch = useDispatch();

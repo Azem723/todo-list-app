@@ -75,7 +75,7 @@ const todolistSlice = createSlice({
     },
     [getInitialList.fulfilled.type](state, action) {
       if (action.payload.errno === 0) {
-        console.log('getInitialList fulfilled');
+        // console.log('getInitialList fulfilled');
         state.loading = false;
         state.firstTime = false;
         state.data = action.payload.data;
@@ -85,7 +85,7 @@ const todolistSlice = createSlice({
     },
     [getInitialList.rejected.type](state, action) {
       state.loading = false;
-      console.log('getInitialList fail');
+      // console.log('getInitialList fail');
     }
   }
 });
